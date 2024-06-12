@@ -53,8 +53,8 @@ jobs:
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6936744CAFBD4113BD92DB57097562F0 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_BE04D921E2BE4581A60113D3DF1CF6D8 }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Azure CLI script
         uses: azure/cli@v2
