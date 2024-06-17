@@ -34,13 +34,42 @@ public class AccountController(UserManager<IdentityUser> userManager,
         return View(model);
     }
     
+    // GET: /Account/Login
+    [HttpGet]
+    public IActionResult Login()
+    {
+        return View();
+    }
+    
+    // POST: /Account/Login
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+    {
+        if (ModelState.IsValid)
+        {
+            var user = await userManager.FindByNameAsync(model.UsernameOrEmail) ??
+                       await userManager.FindByEmailAsync(model.UsernameOrEmail);
+            if (user != null)
+            {
+                var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    return RedirectToLocal(returnUrl);
+                }
+            }
+
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+        }
+        return View(model);
+    }
+    
     private IActionResult RedirectToLocal(string returnUrl)
     {
         if (Url.IsLocalUrl(returnUrl))
         {
             return Redirect(returnUrl);
         }
-
         return RedirectToAction(nameof(HomeController.Index), "Home");
     }
     
