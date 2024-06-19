@@ -62,6 +62,12 @@ public class AccountController(UserManager<IdentityUser> userManager,
         }
         return View(model);
     }
+
+    [HttpGet]
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
     
     private IActionResult RedirectToLocal(string returnUrl)
     {
