@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Kyloe.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 var connectionString = builder.Configuration["AZURE_SQL_CONNECTIONSTRING"] ??
                        throw new InvalidOperationException("Connection string 'AzureSqlConnection' not found.");
